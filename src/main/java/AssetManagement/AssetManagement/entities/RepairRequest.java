@@ -62,6 +62,9 @@ public class RepairRequest implements Serializable {
     @JoinColumn(name = "detail_asset", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private DetailAsset detailAsset;
+    @JoinColumn(name = "status", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Status status;
 
     public RepairRequest() {
     }
@@ -123,6 +126,14 @@ public class RepairRequest implements Serializable {
 
     public void setDetailAsset(DetailAsset detailAsset) {
         this.detailAsset = detailAsset;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override

@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,8 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "RepairStatus.findAll", query = "SELECT r FROM RepairStatus r")
     , @NamedQuery(name = "RepairStatus.findById", query = "SELECT r FROM RepairStatus r WHERE r.id = :id")
-    , @NamedQuery(name = "RepairStatus.findByRepairDate", query = "SELECT r FROM RepairStatus r WHERE r.repairDate = :repairDate")
-    , @NamedQuery(name = "RepairStatus.findByRepairNote", query = "SELECT r FROM RepairStatus r WHERE r.repairNote = :repairNote")})
+    , @NamedQuery(name = "RepairStatus.findByStatusDate", query = "SELECT r FROM RepairStatus r WHERE r.statusDate = :statusDate")})
 public class RepairStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,14 +46,15 @@ public class RepairStatus implements Serializable {
     private String id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "repair_date")
+    @Column(name = "status_date")
     @Temporal(TemporalType.DATE)
-    private Date repairDate;
+    private Date statusDate;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "repair_note")
-    private String repairNote;
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "status_note")
+    private String statusNote;
     @JoinColumn(name = "status", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Status status;
@@ -68,10 +69,10 @@ public class RepairStatus implements Serializable {
         this.id = id;
     }
 
-    public RepairStatus(String id, Date repairDate, String repairNote) {
+    public RepairStatus(String id, Date statusDate, String statusNote) {
         this.id = id;
-        this.repairDate = repairDate;
-        this.repairNote = repairNote;
+        this.statusDate = statusDate;
+        this.statusNote = statusNote;
     }
 
     public String getId() {
@@ -82,20 +83,20 @@ public class RepairStatus implements Serializable {
         this.id = id;
     }
 
-    public Date getRepairDate() {
-        return repairDate;
+    public Date getStatusDate() {
+        return statusDate;
     }
 
-    public void setRepairDate(Date repairDate) {
-        this.repairDate = repairDate;
+    public void setStatusDate(Date statusDate) {
+        this.statusDate = statusDate;
     }
 
-    public String getRepairNote() {
-        return repairNote;
+    public String getStatusNote() {
+        return statusNote;
     }
 
-    public void setRepairNote(String repairNote) {
-        this.repairNote = repairNote;
+    public void setStatusNote(String statusNote) {
+        this.statusNote = statusNote;
     }
 
     public Status getStatus() {

@@ -50,12 +50,15 @@ public class Status implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "is_delete")
-    private boolean isDelete;
+    private String isDelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", fetch = FetchType.LAZY)
     private List<RepairStatus> repairStatusList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", fetch = FetchType.LAZY)
     private List<LoaningStatus> loaningStatusList;
+    @OneToMany(mappedBy = "status", fetch = FetchType.LAZY)
+    private List<RepairRequest> repairRequestList;
     @OneToMany(mappedBy = "status", fetch = FetchType.LAZY)
     private List<LoaningRequest> loaningRequestList;
 
@@ -66,7 +69,7 @@ public class Status implements Serializable {
         this.id = id;
     }
 
-    public Status(String id, String name, boolean isDelete) {
+    public Status(String id, String name, String isDelete) {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;
@@ -88,11 +91,11 @@ public class Status implements Serializable {
         this.name = name;
     }
 
-    public boolean getIsDelete() {
+    public String getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(boolean isDelete) {
+    public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
     }
 
@@ -112,6 +115,15 @@ public class Status implements Serializable {
 
     public void setLoaningStatusList(List<LoaningStatus> loaningStatusList) {
         this.loaningStatusList = loaningStatusList;
+    }
+
+    @XmlTransient
+    public List<RepairRequest> getRepairRequestList() {
+        return repairRequestList;
+    }
+
+    public void setRepairRequestList(List<RepairRequest> repairRequestList) {
+        this.repairRequestList = repairRequestList;
     }
 
     @XmlTransient

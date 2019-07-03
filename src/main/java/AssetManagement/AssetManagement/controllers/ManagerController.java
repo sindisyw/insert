@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author HP
  */
 @Controller
-public class MainController {
+public class ManagerController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -50,42 +50,27 @@ public class MainController {
     @Autowired
     private AssetServices assetServices;
 
-    @GetMapping("/")
-    public String index(Model model) {
-        return "dashboard/home";
-    }
+   
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login";
+    @GetMapping("/manager")
+    public String manager(Model model) {
+        return "dashboard/manager";
     }
-
-    @GetMapping("/request")
-    public String loaning(Model model) {
+    @GetMapping("/manager_approval-request")
+    public String approvalRequest(Model model) {
         model.addAttribute("dataLoaning", loanServices.findAll());
-        model.addAttribute("dataRepair", repairServices.findAll());
-        return "request";
+        return "manager/approval_request";
     }
-
-    @GetMapping("/history")
-    public String history(Model model) {
+    @GetMapping("/manager_approval-history")
+    public String approvalHistory(Model model) {
         model.addAttribute("dataLoaning", loanServices.findAll());
+        return "manager/approval_history";
+    }
+    @GetMapping("/manager_repair")
+    public String repair(Model model) {
         model.addAttribute("dataRepair", repairServices.findAll());
-        return "history";
+        return "manager/repair";
     }
 
-    @PostMapping("/addData")
-    public String addData(Employee employee) {
-        employee.setId("0");
-        employee.setIsDelete("false");
-        employeeRepository.save(employee);
-        return "redirect:/employee";
-    }
 
-    @GetMapping("/EmpController/softdelete/{id}")
-    public String softDelete(@PathVariable("id") String id, Employee employee) {
-        employee.setIsDelete("true");
-        employeeRepository.save(employee);
-        return "redirect:/employee";
-    }
 }

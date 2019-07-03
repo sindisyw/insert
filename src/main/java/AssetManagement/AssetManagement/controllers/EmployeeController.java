@@ -6,9 +6,13 @@
 package AssetManagement.AssetManagement.controllers;
 
 import AssetManagement.AssetManagement.entities.Employee;
+import AssetManagement.AssetManagement.entities.Status;
+import AssetManagement.AssetManagement.entities.LoaningRequest;
 import AssetManagement.AssetManagement.repository.EmployeeRepository;
+import AssetManagement.AssetManagement.repository.LoanRepository;
 import AssetManagement.AssetManagement.services.AccountServices;
 import AssetManagement.AssetManagement.services.AssetServices;
+import AssetManagement.AssetManagement.services.DetailAssetServices;
 import AssetManagement.AssetManagement.services.EmployeeServices;
 import AssetManagement.AssetManagement.services.JobServices;
 import AssetManagement.AssetManagement.services.LoanServices;
@@ -31,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author HP
  */
 @Controller
-public class MainController {
+public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -46,46 +50,35 @@ public class MainController {
     @Autowired
     private LoanServices loanServices;
     @Autowired
+    private LoanRepository loanRepository;
+    @Autowired
     private RepairServices repairServices;
     @Autowired
     private AssetServices assetServices;
+    @Autowired
+    private DetailAssetServices detailassetServices;
 
-    @GetMapping("/")
-    public String index(Model model) {
-        return "dashboard/home";
+    @GetMapping("/employee")
+    public String manager(Model model) {
+        return "dashboard/employee";
     }
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login";
-    }
-
-    @GetMapping("/request")
-    public String loaning(Model model) {
+    @GetMapping("/emp_loaning")
+    public String approvalRequest(Model model) {
+        model.addAttribute("dataEmp", employeeServices.findAll());
         model.addAttribute("dataLoaning", loanServices.findAll());
-        model.addAttribute("dataRepair", repairServices.findAll());
-        return "request";
+        model.addAttribute("dataAsset", assetServices.findAll());
+        model.addAttribute("detailAsset", detailassetServices.findAll());
+        return "employee/loaning";
     }
 
-    @GetMapping("/history")
-    public String history(Model model) {
-        model.addAttribute("dataLoaning", loanServices.findAll());
-        model.addAttribute("dataRepair", repairServices.findAll());
-        return "history";
-    }
-
-    @PostMapping("/addData")
-    public String addData(Employee employee) {
-        employee.setId("0");
-        employee.setIsDelete("false");
-        employeeRepository.save(employee);
-        return "redirect:/employee";
-    }
-
-    @GetMapping("/EmpController/softdelete/{id}")
-    public String softDelete(@PathVariable("id") String id, Employee employee) {
-        employee.setIsDelete("true");
-        employeeRepository.save(employee);
-        return "redirect:/employee";
+    @PostMapping("/loaningrequest/addData")
+    public String addLoan(LoaningRequest loan) {
+        loan.setId("0");
+        Status status = new Status();
+        status.setId("ST1");
+        loan.setStatus(status);
+        loanRepository.save(loan);
+        return "redirect:/emp_loaning";
     }
 }

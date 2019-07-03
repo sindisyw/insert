@@ -57,8 +57,9 @@ public class Asset implements Serializable {
     private int quantity;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "is_delete")
-    private boolean isDelete;
+    private String isDelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "asset", fetch = FetchType.LAZY)
     private List<DetailAsset> detailAssetList;
     @JoinColumn(name = "category", referencedColumnName = "id")
@@ -72,7 +73,7 @@ public class Asset implements Serializable {
         this.id = id;
     }
 
-    public Asset(String id, String name, int quantity, boolean isDelete) {
+    public Asset(String id, String name, int quantity, String isDelete) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
@@ -103,11 +104,11 @@ public class Asset implements Serializable {
         this.quantity = quantity;
     }
 
-    public boolean getIsDelete() {
+    public String getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(boolean isDelete) {
+    public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
     }
 

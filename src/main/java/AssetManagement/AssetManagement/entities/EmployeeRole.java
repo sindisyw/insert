@@ -39,12 +39,12 @@ public class EmployeeRole implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "id")
     private String id;
-    @JoinColumn(name = "employee", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee employee;
     @JoinColumn(name = "role", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Role role;
+    @JoinColumn(name = "employee", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Employee employee;
 
     public EmployeeRole() {
     }
@@ -61,20 +61,20 @@ public class EmployeeRole implements Serializable {
         this.id = id;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public Role getRole() {
         return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override

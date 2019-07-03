@@ -50,8 +50,9 @@ public class Role implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 5)
     @Column(name = "is_delete")
-    private boolean isDelete;
+    private String isDelete;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role", fetch = FetchType.LAZY)
     private List<EmployeeRole> employeeRoleList;
 
@@ -62,7 +63,7 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public Role(String id, String name, boolean isDelete) {
+    public Role(String id, String name, String isDelete) {
         this.id = id;
         this.name = name;
         this.isDelete = isDelete;
@@ -84,11 +85,11 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-    public boolean getIsDelete() {
+    public String getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(boolean isDelete) {
+    public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
     }
 

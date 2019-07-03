@@ -27,23 +27,7 @@
     </head>
     <body>
         <section id="container">
-            <!--header start-->
-            <header class="header black-bg">
-                <div class="sidebar-toggle-box">
-                    <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation">
-                    </div>
-                </div>
-                <!--logo start-->
-                <a th:href="@{/}" class="logo"><b>ACE<span>MAN</span></b></a>
-                <!--logo end-->
-
-                <div class="top-menu">
-                    <ul class="nav pull-right top-menu">
-                        <li><a class="logout" th:href="@{/login}">Logout</a></li>
-                    </ul>
-                </div>
-            </header>
-            <!--header end-->
+            
             <!--sidebar  CLEAR-->
             <aside>
                 <div id="sidebar" class="nav-collapse ">
@@ -63,25 +47,13 @@
                                 <span>Administrator</span>
                             </a>
                             <ul class="sub">
-                                <li><a th:href="@{/employee}">Employee</a></li>
-                                <li><a th:href="@{/job&role}"> Job & Role</a></li>
-                                <li><a th:href="@{/asset}"> Asset</a></li>
+                                <li><a th:href="@{/admin-employee}">Employee</a></li>
+                                <li><a th:href="@{/admin-job&role}"> Job & Role</a></li>
+                                <li><a th:href="@{/admin-asset}"> Asset</a></li>
                             </ul>
 
                         </li>
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-cogs"></i>
-                                <span>Approval Request</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a th:href="@{/request}">Request</a></li>
-                                <li><a th:href="@{/history}">History</a></li>                                
-                            </ul>
-                        </li>
-
                     </ul>
-                    <!-- sidebar menu end-->
                 </div>
             </aside>
             <!--sidebar end-->
@@ -92,6 +64,7 @@
                 <img th:src="@{/dist/img/asset.jpg}" class="img-responsive">
                 <div class="col-md mb container-fluid">
                     <h1 style="font-size: 50px"> WELCOME TO <a class="logo-lg" ><b>ACE-MAN</b></a></h1>
+                    <h3> This is your Administrator Dashboard </h3>
                     <p>Asset management is a systematic process of developing, operating, maintaining, upgrading, and disposing of assets in the most cost-effective manner (including all costs, risks and performance attributes).</p>
 
                 </div>

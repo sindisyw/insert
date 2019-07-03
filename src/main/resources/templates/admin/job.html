@@ -257,24 +257,12 @@
                                 <span>Administrator</span>
                             </a>
                             <ul class="sub">
-                                <li><a th:href="@{/employee}">Employee</a></li>
-                                <li class="active"><a th:href="@{/job&role}"> Job & Role</a></li>
-                                <li><a th:href="@{/asset}"> Asset</a></li>
-                                
+                                <li><a th:href="@{/admin-employee}">Employee</a></li>
+                                <li class="active"><a th:href="@{/admin-job&role}"> Job & Role</a></li>
+                                <li><a th:href="@{/admin-asset}"> Asset</a></li>
+
                             </ul>
                         </li>
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-cogs"></i>
-                                <span>Approval Request</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a th:href="@{/request}">Request</a></li>
-                                <li><a th:href="@{/history}">History</a></li>                                
-                            </ul>
-                        </li>
-
                     </ul>
                     <!-- sidebar menu end-->
                 </div>
@@ -304,9 +292,9 @@
                                             <tr th:each="job:${dataJob}">
                                                 <td th:text="${job.id}"></td>
                                                 <td th:text="${job.name}"></td>
-                                                
+
                                                 <td>
-                                                    <button class="btn btn-success btn btn-xs" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i>Edit</button>
+                                                    <button th:href="@{/find/(id=${job.id})}" class="btn btn-success btn btn-xs" ><i class="fa fa-edit"></i>Edit</button>
                                                     <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#softdelete"><i class="fa fa-trash"></i>Delete</button>
                                                 </td>
                                             </tr>
@@ -339,7 +327,7 @@
                                             <tr th:each="role:${dataRole}">
                                                 <td th:text="${role.id}"></td>
                                                 <td th:text="${role.name}"></td>
-                                                
+
                                                 <td>
                                                     <button class="btn btn-success btn btn-xs" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i>Edit</button>
                                                     <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#softdelete"><i class="fa fa-trash"></i>Delete</button>
@@ -357,180 +345,87 @@
             </section>
             <!--EMPLOYEE MANAGEMENT end-->            
             <!--main content end-->
-
-        </section>
-        <!--footer start-->
-        <footer class="footer">
-            <div class="text-center">
-                <p>
-                    &copy; Copyrights <strong>Bootcamp 26 Java</strong>.
-                </p>
-                <a th:href="@{/employee}" class="go-top">
-                    <i class="fa fa-angle-up"></i>
-                </a>
-            </div>
-        </footer>
-        <!--footer end-->
-
-        <!-- Modal Add -->
-        <div class="modal fade" id="myModal" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Employee</h4>
-                        <button type="btn btn-lg" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                    </div>
-                    <div class="modal-body">                       
-                        <div class="form-panel">
-                            <form th:action="@{/addData}" method="post" class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="firstname" class="col-sm-3  control-label">First Name</label>
-                                    <div class="col-sm-9">
-                                        <input id="firstName" name="firstName" type="text" class="form-control" placeholder="input first name">
+            <!-- Modal AddJob -->
+            <div class="modal fade" id="AddJob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Add Job</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mt">
+                                <div class="col-lg-12">
+                                    <div class="form-panel">
+                                        <div class=" form">
+                                            <form th:action="@{/addJob}" method="post" class="form-horizontal">
+                                                <div class="form-group ">
+                                                    <label for="name" class="control-label col-lg-2">Job</label>
+                                                    <div class="col-sm-9">
+                                                        <input id="name" name="name" type="text" class="form-control" placeholder="name job">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-offset-2 col-lg-10">
+                                                        <button class="btn btn-theme btnSave" type="submit" value = "Add Job">Save</button>
+                                                        <button class="btn btn-theme04" type="button" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
+                                    <!-- /form-panel -->
                                 </div>
-                                <div class="form-group">
-                                    <label for="lastname" class="col-sm-3  control-label">Last Name</label>
-                                    <div class="col-sm-9">
-                                        <input id="lastName" name="lastName" type="text" class="form-control" placeholder="input last name">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="col-sm-3  control-label">Email</label>
-                                    <div class="col-sm-9">
-                                        <input id="email" name="email" type="text" class="form-control" placeholder="input email">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="phonenumber" class="col-sm-3  control-label">Phone Number</label>
-                                    <div class="col-sm-9">
-                                        <input id="phoneNumber" name="phoneNumber" type="text" class="form-control" placeholder="input phone number">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="salary" class="col-sm-3  control-label">Salary</label>
-                                    <div class="col-sm-9">
-                                        <input id="salary" name="salary" type="number" class="form-control" placeholder="input salary">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="manager" class="col-sm-3 control-label">Manager</label>
-                                    <div class="col-sm-9">
-                                        <select name="manager" id="manager" class="form-control">
-                                            <option value="">-- Select Manager --</option>
-                                            <option th:each="data:${dataEmp}" th:value="${data.id}" th:text="${data.firstName}"></option>
-
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success" id="confirm">Save</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-
-                                </div>
-                            </form>
+                                <!-- /col-lg-12 -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- End Modal AddJob -->
+            
         </div>
-        <!--Modal Edit-->
-        <div class="modal fade" id="editModal" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Employee</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    </div>
-                    <div class="modal-body">                       
-                        <div class="form-panel">
-                            <form th:action="@{/addData}" method="post" class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="firstname" class="col-sm-3  control-label">First Name</label>
-                                    <div class="col-sm-9">
-                                        <input id="firstName" name="firstName" type="text" class="form-control" placeholder="input first name">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="lastname" class="col-sm-3  control-label">Last Name</label>
-                                    <div class="col-sm-9">
-                                        <input id="lastName" name="lastName" type="text" class="form-control" placeholder="input last name">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="col-sm-3  control-label">Email</label>
-                                    <div class="col-sm-9">
-                                        <input id="email" name="email" type="text" class="form-control" placeholder="input email">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="phonenumber" class="col-sm-3  control-label">Phone Number</label>
-                                    <div class="col-sm-9">
-                                        <input id="phoneNumber" name="phoneNumber" type="text" class="form-control" placeholder="input phone number">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="salary" class="col-sm-3  control-label">Salary</label>
-                                    <div class="col-sm-9">
-                                        <input id="salary" name="salary" type="number" class="form-control" placeholder="input salary">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="manager" class="col-sm-3 control-label">Manager</label>
-                                    <div class="col-sm-9">
-                                        <select name="manager" id="manager" class="form-control">
-                                            <option value="">-- Select Manager --</option>
-                                            <option th:each="data:${dataEmp}" th:value="${data.id}" th:text="${data.firstName}"></option>
-
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success" id="confirm">Save</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- End Modal AddJob -->
+    </section>
+    <!--footer start-->
+    <footer class="footer">
+        <div class="text-center">
+            <p>
+                &copy; Copyrights <strong>Bootcamp 26 Java</strong>.
+            </p>
+            <a th:href="@{/employee}" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
         </div>
-        <!-- Modal Delete -->
+    </footer>
+    <!--footer end-->
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <div>
+        <script src="dist/lib/jquery/jquery.min.js"></script>
+        <script src="dist/lib/bootstrap/js/bootstrap.min.js"></script>
+        <script class="include" type="text/javascript" src="dist/lib/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="dist/lib/jquery.scrollTo.min.js"></script>
+        <script src="dist/lib/jquery.nicescroll.js" type="text/javascript"></script>
+        <script type="text/javascript" language="javascript" src="dist/lib/advanced-datatable/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="dist/lib/advanced-datatable/js/DT_bootstrap.js"></script>
+        <!--common script for all pages-->
+        <script src="dist/lib/common-scripts.js"></script>
+        <!--script for this page-->
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var oTable = $('#hidden-table-info').dataTable({
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var oTable = $('#hidden-table-info2').dataTable({
+                });
+            });
+        </script>
         
-
-
-        <!-- js placed at the end of the document so the pages load faster -->
-        <div>
-            <script src="dist/lib/jquery/jquery.min.js"></script>
-            <script src="dist/lib/bootstrap/js/bootstrap.min.js"></script>
-            <script class="include" type="text/javascript" src="dist/lib/jquery.dcjqaccordion.2.7.js"></script>
-            <script src="dist/lib/jquery.scrollTo.min.js"></script>
-            <script src="dist/lib/jquery.nicescroll.js" type="text/javascript"></script>
-            <script type="text/javascript" language="javascript" src="dist/lib/advanced-datatable/js/jquery.dataTables.js"></script>
-            <script type="text/javascript" src="dist/lib/advanced-datatable/js/DT_bootstrap.js"></script>
-            <!--common script for all pages-->
-            <script src="dist/lib/common-scripts.js"></script>
-            <!--script for this page-->
-            <script type="text/javascript">
-                $(document).ready(function () {  
-                    var oTable = $('#hidden-table-info').dataTable({                       
-                    }); 
-                });
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function () {  
-                    var oTable = $('#hidden-table-info2').dataTable({                       
-                    }); 
-                });
-            </script>
-        </div>
-    </body>
+    </div>
+</body>
 
 </html>
