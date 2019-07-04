@@ -57,27 +57,13 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
+                        
                         <li class="sub-menu">
-                            <a>
-                                <i class="fa fa-desktop"></i>
-                                <span>Administrator</span>
+                            <a th:href="@{/emp_loaning}">
+                                <i class="fa fa-cogs" ></i>
+                                <span>Loaning</span>
                             </a>
-                            <ul class="sub">
-                                <li><a th:href="@{/employee}">Employee</a></li>
-                                <li><a th:href="@{/job&role}"> Job & Role</a></li>
-                                <li><a th:href="@{/asset}"> Asset</a></li>
-                            </ul>
-
-                        </li>
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-cogs"></i>
-                                <span>Approval Request</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a th:href="@{/request}">Request</a></li>
-                                <li><a th:href="@{/history}">History</a></li>                                
-                            </ul>
+                            
                         </li>
 
                     </ul>
@@ -92,6 +78,7 @@
                 <img th:src="@{/dist/img/asset.jpg}" class="img-responsive">
                 <div class="col-md mb container-fluid">
                     <h1 style="font-size: 50px"> WELCOME TO <a class="logo-lg" ><b>ACE-MAN</b></a></h1>
+                    <h3> This is your Employee Dashboard </h3>
                     <p>Asset management is a systematic process of developing, operating, maintaining, upgrading, and disposing of assets in the most cost-effective manner (including all costs, risks and performance attributes).</p>
 
                 </div>

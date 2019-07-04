@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Forget Your Password</title>
+    <!--<link rel="icon" href="#" th:href="@{/img/favicon.ico}" type="image/x-icon"/>-->
+</head>
+<body>
+<div layout:fragment="content">
+
+ <!--==========================
+    Login Section
+    ============================-->
+  
+  <section id="login" class="clearfix">
+<!--    <div class="overlay"></div>-->
+    <div class="container d-flex h-100">
+
+    <div class="login">
+        <div class="login-info wow fadeInUp">
+          <h2>Forget <span>Password</span></h2>
+
+          <div>
+              <form th:action="@{/forget/password/send}" method="get">
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+<!--                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                </div>
+
+                <button type="submit" class="btn btn-login btn-block">Send</button>
+              </form>
+          </div>
+        </div>
+      </div>
+
+    </div>      
+  </section><!-- #login -->  
+  
+</div>
+</body>
+</html>

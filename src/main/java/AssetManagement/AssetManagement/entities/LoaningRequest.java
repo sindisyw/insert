@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author ACER
  */
 @Entity
 @Table(name = "loaning_request")

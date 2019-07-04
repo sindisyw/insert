@@ -5,12 +5,14 @@
  */
 package AssetManagement.AssetManagement.controllers;
 
-import AssetManagement.AssetManagement.entities.Account;
 import AssetManagement.AssetManagement.entities.Employee;
-import AssetManagement.AssetManagement.repository.AccountRepository;
+import AssetManagement.AssetManagement.entities.Status;
+import AssetManagement.AssetManagement.entities.LoaningRequest;
 import AssetManagement.AssetManagement.repository.EmployeeRepository;
+import AssetManagement.AssetManagement.repository.LoanRepository;
 import AssetManagement.AssetManagement.services.AccountServices;
 import AssetManagement.AssetManagement.services.AssetServices;
+import AssetManagement.AssetManagement.services.DetailAssetServices;
 import AssetManagement.AssetManagement.services.EmployeeServices;
 import AssetManagement.AssetManagement.services.JobServices;
 import AssetManagement.AssetManagement.services.LoanServices;
@@ -20,7 +22,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author HP
  */
 @Controller
-public class MainController {
+public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -43,70 +44,41 @@ public class MainController {
     @Autowired
     private AccountServices accountServices;
     @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
     private JobServices jobServices;
     @Autowired
     private RoleServices roleServices;
     @Autowired
     private LoanServices loanServices;
     @Autowired
+    private LoanRepository loanRepository;
+    @Autowired
     private RepairServices repairServices;
     @Autowired
     private AssetServices assetServices;
+    @Autowired
+    private DetailAssetServices detailassetServices;
 
-    @RequestMapping(value = {"/", "", "/login"}, method = RequestMethod.GET)
-    public String login() {
-        return "login";
-    }
-    
-    @GetMapping("/home")
-    public String index(Model model) {
-        return "dashboard/home";
+    @GetMapping("/employee")
+    public String manager(Model model) {
+        return "dashboard/employee";
     }
 
-//    @GetMapping("/login")
-//    public String login(Model model) {
-//        return "login";
-//    }
-
-    @GetMapping("/request")
-    public String loaning(Model model) {
+    @GetMapping("/emp_loaning")
+    public String approvalRequest(Model model) {
+        model.addAttribute("dataEmp", employeeServices.findAll());
         model.addAttribute("dataLoaning", loanServices.findAll());
-        model.addAttribute("dataRepair", repairServices.findAll());
-        return "request";
+        model.addAttribute("dataAsset", assetServices.findAll());
+        model.addAttribute("detailAsset", detailassetServices.findAll());
+        return "employee/loaning";
     }
 
-    @GetMapping("/history")
-    public String history(Model model) {
-        model.addAttribute("dataLoaning", loanServices.findAll());
-        model.addAttribute("dataRepair", repairServices.findAll());
-        return "history";
-    }
-
-    @PostMapping("/addData")
-    public String addData(Employee employee) {
-        employee.setId("0");
-        employee.setIsDelete("false");
-        employeeRepository.save(employee);
-        return "redirect:/employee";
-    }
-    
-    @PostMapping("/addDataAcc")
-    public String addAcc(String password, Account account) {
-        //account.setId("0");
-        account.setIsDelete("false");
-        account.setPassword(new BCryptPasswordEncoder().encode(password));
-        account.setIsActive("false");
-        accountRepository.save(account);
-        
-        return "redirect:/employee";
-    }
-
-    @GetMapping("/EmpController/softdelete/{id}")
-    public String softDelete(@PathVariable("id") String id, Employee employee) {
-        employee.setIsDelete("true");
-        employeeRepository.save(employee);
-        return "redirect:/employee";
+    @PostMapping("/loaningrequest/addData")
+    public String addLoan(LoaningRequest loan) {
+        loan.setId("0");
+        Status status = new Status();
+        status.setId("ST1");
+        loan.setStatus(status);
+        loanRepository.save(loan);
+        return "redirect:/emp_loaning";
     }
 }

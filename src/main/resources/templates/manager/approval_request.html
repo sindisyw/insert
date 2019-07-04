@@ -248,31 +248,24 @@
                         <li class="mt">
                             <a  th:href="@{/}">
                                 <i class="fa fa-dashboard"></i>
-                                <span>Dashboard</span>
+                                <span>DASHBOARD</span>
                             </a>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-tasks"></i>
-                                <span>Administrator</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a th:href="@{/employee}">Employee</a></li>
-                                <li><a th:href="@{/job&role}"> Job & Role</a></li>
-                                <li><a th:href="@{/asset}"> Asset</a></li>
-
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu">
-                            <a  class="active" href="javascript:;">
+                            <a class="active">
                                 <i class="fa fa-cogs"></i>
-                                <span>Approval Request</span>
+                                <span>APPROVAL</span>
                             </a>
                             <ul class="sub">
-                                <li><a th:href="@{/request}">Request</a></li>
-                                <li class="active"><a th:href="@{/history}">History</a></li>                                
+                                <li class="active"><a th:href="@{/manager_approval-request}">Request</a></li>
+                                <li><a th:href="@{/manager_approval-history}">History</a></li>                                
                             </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a th:href="@{/manager_repair}">
+                                <i class="fa fa-cogs"></i>
+                                <span>REPAIR</span>
+                            </a>
                         </li>
 
                     </ul>
@@ -284,7 +277,7 @@
             <!--EMPLOYEE MANAGEMENT start-->          
             <section id="main-content">
                 <section class="wrapper">
-                    <h3><i class="fa fa-angle-right"></i>   LOANING HISTORY </h3>
+                    <h3><i class="fa fa-angle-right"></i>   LOANING REQUEST </h3>
                     <div class="row mb">
                         <div class="col-md-12">
                             <!-- page start-->
@@ -297,29 +290,19 @@
                                                 <th>ID</th>
                                                 <th>REQUESTER</th>
                                                 <th>STATUS</th>
-                                                <th>DATE</th>
                                                 <th>ACTION</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="loan:${dataLoaning}">
+                                            <tr th:each="loan:${dataLoaning}" th:switch="${loan.status.name}" th:case="'Pending'" >
                                                 <td th:text="${loan.id}"></td>
                                                 <td th:text="${loan.employee.firstName+' '+loan.employee.lastName}"></td>
-                                                <td>
-                                                    <a th:each="list:${loan.loaningStatusList}">
-                                                        <p th:text="${list.status.name}"></p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a th:each="list:${loan.loaningStatusList}">
-                                                        <p th:text="${list.loaningDate}"></p>
-                                                    </a>
-                                                </td>
-                                                
-                                                
+                                                <td th:text="${loan.status.name}"></td>
                                                 <td>
                                                     <button class="btn btn-success btn btn-sm" data-toggle="modal" data-target="#editModal"><i class="fa fa-hashtag"></i> Details</button>
-                                                    </td>
+                                                    <button class="btn btn-primary btn btn-sm" data-toggle="modal" data-target="#editModal"><i class="fa fa-check"></i> Approve</button>
+                                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#softdelete"><i class="fa fa-ban"></i> Reject</button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -327,51 +310,7 @@
                             </div>
                         </div>
                     </div>
-                    <h3><i class="fa fa-angle-right"></i>   REPAIR REQUEST </h3>
-                    <div class="row mb">
-                        <div class="col-md-12">
-                            <!-- page start-->
-                            <div class="panel">
-                                <br>
-                                <div class="adv-table">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info2">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>REQUESTER</th>
-                                                <th>STATUS</th>
-                                                <th>DATE</th>
-                                                <th>ACTION</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="rpr:${dataRepair}"  th:switch="${rpr.status.name}" th:case="'Pending'">
-                                                <td th:text="${rpr.id}"></td>
-                                                <td th:text="${rpr.employee.firstName+' '+rpr.employee.lastName}"></td>
-                                                <td>
-                                                    <a th:each="list:${rpr.repairStatusList}">
-                                                        <p th:text="${list.status.name}"></p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a th:each="list:${rpr.repairStatusList}">
-                                                        <p th:text="${list.loaningDate}"></p>
-                                                    </a>
-                                                </td>
-
-                                                <td>
-                                                    <button class="btn btn-success btn btn-xs" data-toggle="modal" data-target="#editModal"><i class="fa fa-hashtag"></i> Details</button>
-                                                    <button class="btn btn-primary btn btn-xs" data-toggle="modal" data-target="#editModal"><i class="fa fa-check"></i> Approve</button>
-                                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#softdelete"><i class="fa fa-ban"></i> Reject</button>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </section> 
             </section>
             <!--EMPLOYEE MANAGEMENT end-->            

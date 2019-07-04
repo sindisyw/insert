@@ -5,9 +5,7 @@
  */
 package AssetManagement.AssetManagement.controllers;
 
-import AssetManagement.AssetManagement.entities.Account;
 import AssetManagement.AssetManagement.entities.Employee;
-import AssetManagement.AssetManagement.repository.AccountRepository;
 import AssetManagement.AssetManagement.repository.EmployeeRepository;
 import AssetManagement.AssetManagement.services.AccountServices;
 import AssetManagement.AssetManagement.services.AssetServices;
@@ -20,7 +18,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author HP
  */
 @Controller
-public class MainController {
+public class ManagerController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -42,8 +39,6 @@ public class MainController {
     private EmployeeServices employeeServices;
     @Autowired
     private AccountServices accountServices;
-    @Autowired
-    private AccountRepository accountRepository;
     @Autowired
     private JobServices jobServices;
     @Autowired
@@ -55,58 +50,27 @@ public class MainController {
     @Autowired
     private AssetServices assetServices;
 
-    @RequestMapping(value = {"/", "", "/login"}, method = RequestMethod.GET)
-    public String login() {
-        return "login";
-    }
-    
-    @GetMapping("/home")
-    public String index(Model model) {
-        return "dashboard/home";
-    }
+   
 
-//    @GetMapping("/login")
-//    public String login(Model model) {
-//        return "login";
-//    }
-
-    @GetMapping("/request")
-    public String loaning(Model model) {
+    @GetMapping("/manager")
+    public String manager(Model model) {
+        return "dashboard/manager";
+    }
+    @GetMapping("/manager_approval-request")
+    public String approvalRequest(Model model) {
         model.addAttribute("dataLoaning", loanServices.findAll());
-        model.addAttribute("dataRepair", repairServices.findAll());
-        return "request";
+        return "manager/approval_request";
     }
-
-    @GetMapping("/history")
-    public String history(Model model) {
+    @GetMapping("/manager_approval-history")
+    public String approvalHistory(Model model) {
         model.addAttribute("dataLoaning", loanServices.findAll());
+        return "manager/approval_history";
+    }
+    @GetMapping("/manager_repair")
+    public String repair(Model model) {
         model.addAttribute("dataRepair", repairServices.findAll());
-        return "history";
+        return "manager/repair";
     }
 
-    @PostMapping("/addData")
-    public String addData(Employee employee) {
-        employee.setId("0");
-        employee.setIsDelete("false");
-        employeeRepository.save(employee);
-        return "redirect:/employee";
-    }
-    
-    @PostMapping("/addDataAcc")
-    public String addAcc(String password, Account account) {
-        //account.setId("0");
-        account.setIsDelete("false");
-        account.setPassword(new BCryptPasswordEncoder().encode(password));
-        account.setIsActive("false");
-        accountRepository.save(account);
-        
-        return "redirect:/employee";
-    }
 
-    @GetMapping("/EmpController/softdelete/{id}")
-    public String softDelete(@PathVariable("id") String id, Employee employee) {
-        employee.setIsDelete("true");
-        employeeRepository.save(employee);
-        return "redirect:/employee";
-    }
 }

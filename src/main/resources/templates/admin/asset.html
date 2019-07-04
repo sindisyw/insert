@@ -257,24 +257,12 @@
                                 <span>Administrator</span>
                             </a>
                             <ul class="sub">
-                                <li><a th:href="@{/employee}">Employee</a></li>
-                                <li><a th:href="@{/job&role}"> Job & Role</a></li>
-                                <li class="active"><a th:href="@{/asset}"> Asset</a></li>
+                                <li><a th:href="@{/admin-employee}">Employee</a></li>
+                                <li><a th:href="@{/admin-job&role}"> Job & Role</a></li>
+                                <li class="active"><a th:href="@{/admin-asset}"> Asset</a></li>
                                 
                             </ul>
                         </li>
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-cogs"></i>
-                                <span>Approval Request</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a th:href="@{/request}">Request</a></li>
-                                <li><a th:href="@{/history}">History</a></li>                                
-                            </ul>
-                        </li>
-
                     </ul>
                     <!-- sidebar menu end-->
                 </div>
@@ -289,6 +277,8 @@
                         <div class="col-md-12">
                             <!-- page start-->
                             <div class="panel">
+                                <button class="btn btn-lg pull-right mb" style="color: white; background-color: #4ECDC4" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> New Asset</button>
+                                
                                 <br>
                                 <div class="adv-table">
                                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
@@ -298,21 +288,26 @@
                                                 <th>NAME</th>
                                                 <th>CATEGORY</th>
                                                 <th>QUANTITY</th>
-                                                <th>DETAIL</th>
+                                                <th>BRAND</th>
+                                                <th>SPECIFICATION</th>
                                                 <th>ACTION</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr th:each="asset:${dataAsset}">
                                                 <td th:text="${asset.id}"></td>
-                                                <td th:text="${asset.name}"></td>
-                                                <td th:text="${asset.category.name}"></td>
-                                                <td th:text="${asset.quantity}"></td>
-                                                <td>
+                                                <td style="width: 80px" th:text="${asset.name}"></td>
+                                                <td style="width: 50px" th:text="${asset.category.name}"></td>
+                                                <td style="width: 50px" th:text="${asset.quantity}"></td>
+                                                <td style="width: 100px">
+                                                <a th:each="list:${asset.detailAssetList}">
+                                                    <p th:text="${list.brand}"></p></a>
+                                                </td>
+                                                <td style="width: 800px">
                                                 <a th:each="list:${asset.detailAssetList}">
                                                     <p th:text="${list.spesification}"></p></a>
                                                 </td>
-                                                <td>
+                                                <td style="width: 80px">
                                                     <button class="btn btn-primary btn btn-sm" data-toggle="modal" data-target="#editModal"><i class="fa fa-check"></i> Edit</button>
                                                 </td>
                                             </tr>
