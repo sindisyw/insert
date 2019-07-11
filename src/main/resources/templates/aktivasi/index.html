@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <html xmlns:th="http://www.thymeleaf.org">
+
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="">
+            <meta name="author" content="Dashboard">
+            <meta name="keyword" content="Leave, Request, Cuti">
+            <title>Activate Account | Asset Management</title>
+
+            <!-- Favicons -->
+            <link th:href="@{/dist/img/favicon.png}" rel="icon">
+            <link th:href="@{/dist/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+            <!-- Bootstrap core CSS -->
+            <link th:href="@{/dist/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+            <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet">
+            <!--external css-->
+            <link th:href="@{/dist/lib/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+            <!-- Custom styles for this template -->
+            <link th:href="@{/dist/css/style.css}" rel="stylesheet">
+            <link th:href="@{/dist/css/style-responsive.css}" rel="stylesheet">
+
+        </head>
+
+        <body>
+            <!-- **********************************************************************************************************************************************************
+                MAIN CONTENT
+                *********************************************************************************************************************************************************** -->
+            <section>
+                <div id="login-page">
+                    <h1 class="text-center"><a style="color:#ffffff">ACE<span style="color:#4ecdc4">MAN</span></a></h1>
+                    <div class="container">
+                        <form class="form-login" th:action="@{/AccountActivation?token=}+${token}" method="post">
+                            <h2 class="form-login-heading">Activate Account</h2>
+                            <div th:if="${error} == false" style="padding:15px 15px 0px 15px">
+                                <div class="alert alert-warning text-center alert-dismissable">
+                                    <button class="close" aria-hidden="true" type="button" data-dismiss="alert">×</button>
+                                    <strong><h4>Warning!</h4></strong> Invalid activation code.
+                                </div>
+                            </div>
+                            <div class="login-wrap">
+                                <label>Masukkan kode verifikasi yang sudah anda terima</label>
+                                <!--<input th:value="${param.username}" th:if="${param.success}" name="username" type="text" class="form-control" placeholder="Username" data-error="Username invalid !"  autofocus required="Please insert your username !">-->
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="aktivasi" aria-describedby="aktivasi" name="aktivasi" required="Please insert your Activation code !">
+                                </div>
+                                <br>
+                                <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> Continue</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- js placed at the end of the document so the pages load faster -->
+                <script th:src="@{/dist/lib/jquery/jquery.min.js}"></script>
+                <script th:src="@{/dist/lib/bootstrap/js/bootstrap.min.js}"></script>
+                <!--BACKSTRETCH-->
+                <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+                <script type="text/javascript" th:src="@{/dist/lib/jquery.backstretch.min.js}"></script>
+                <script>
+                    $.backstretch("${/dist/img/login-bg.jpg}", {
+                        speed: 500
+                    });
+                </script>
+            </section>
+        </body>
+
+    </html>

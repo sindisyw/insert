@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username")
     , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
     , @NamedQuery(name = "Account.findByIsDelete", query = "SELECT a FROM Account a WHERE a.isDelete = :isDelete")
+    , @NamedQuery(name = "Account.findByToken", query = "SELECT a FROM Account a WHERE a.token = :token")
     , @NamedQuery(name = "Account.findByIsActive", query = "SELECT a FROM Account a WHERE a.isActive = :isActive")})
 public class Account implements Serializable {
 
@@ -64,6 +65,11 @@ public class Account implements Serializable {
     private String isDelete;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 225)
+    @Column(name = "token")
+    private String token;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 5)
     @Column(name = "is_active")
     private String isActive;
@@ -78,11 +84,12 @@ public class Account implements Serializable {
         this.id = id;
     }
 
-    public Account(String id, String username, String password, String isDelete, String isActive) {
+    public Account(String id, String username, String password, String isDelete, String token, String isActive) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.isDelete = isDelete;
+        this.token = token;
         this.isActive = isActive;
     }
 
@@ -124,6 +131,14 @@ public class Account implements Serializable {
 
     public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getIsActive() {

@@ -435,8 +435,7 @@
                                     <div class="col-sm-9">
                                         <select name="id" id="id" class="form-control">
                                             <option value="">-- Select ID --</option>
-                                            <option th:each="data:${dataEmp}" th:value="${data.id}" th:text="${data.id}"  ></option>
-
+                                            <option th:each="data:${dataEmp}" th:value="${data.id}" th:text="${data.id}+'-'+${data.firstName}"  ></option>
                                         </select>
                                     </div>
                                 </div>
@@ -452,20 +451,18 @@
                                         <input id="password" name="password" type="password" class="form-control" placeholder="input password">
                                     </div>
                                 </div>
-<!--                                <div class="form-group">
-                                    <label for="id" class="col-sm-3 control-label">Role</label>
+                                <div class="form-group">
+                                    <label for="role" class="col-sm-3 control-label">Role</label>
                                     <div class="col-sm-9">
-                                        <select name="id" id="id" class="form-control">
+                                        <select name="role" id="role" class="form-control">
                                             <option value="">-- Select Role --</option>
                                             <option th:each="data:${dataRole}" th:value="${data.id}" th:text="${data.name}"  ></option>
-
                                         </select>
                                     </div>
-                                </div>-->
+                                </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-success" id="confirm">Save</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-
                                 </div>
                             </form>
                         </div>

@@ -25,8 +25,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration("emailConfig")
 public class EmailConfig {
 
-    private final String username = "upnormal.bootcamp@gmail.com";
-    private final String password = "dan54bugi-bugi";
+    private final String username = "bootcamp.java26@gmail.com";
+    private final String password = "Bootcamp26";
 
     public String getUsername() {
         return this.username;
@@ -44,8 +44,7 @@ public class EmailConfig {
         prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.starttls.enable", "true"); //TLS
 
-        Session session = Session.getInstance(prop,
-                new javax.mail.Authenticator() {
+        Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
             }
@@ -57,7 +56,7 @@ public class EmailConfig {
     public boolean sendEmail(String email, String subject, String message) {
         try {
             Message msg = new MimeMessage(getSession());
-            msg.setFrom(new InternetAddress(getUsername(), "EVAL"));
+            msg.setFrom(new InternetAddress(getUsername(), "Asset Management Admin"));
 
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             msg.setSubject(subject);
@@ -73,33 +72,7 @@ public class EmailConfig {
         }
         return false;
     }
-    
-//    public boolean sendEmail(String email, String subject, String message, boolean useTemplate) {
-//        try {
-//            Message msg = new MimeMessage(getSession());
-//            msg.setFrom(new InternetAddress(getUsername(), "EVAL"));
-//
-//            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-//            msg.setSubject(subject);
-//            if(useTemplate){
-//            String filePath = "F:/eval/src/main/resources/static/dist/template/template.txt";
-//            msg.setContent(readTxt(filePath),"text/html");
-//            } else {
-//            msg.setContent(message, "text/html");
-//            }
-//            msg.setSentDate(new Date());
-            
-            // Send the actual HTML message, as big as you like
-            // Send the actual HTML message, as big as you like
-            //message.setContent(readTxt(filePath),"text/html");
-//            Transport.send(msg);
-//            return true;
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return false;
-//    }
-    
+  
     public String readTxt(String filePath) {
         String content = "";
         try {
@@ -109,7 +82,7 @@ public class EmailConfig {
         }
         return content;
     }
-
+    
     public String createToken(int length) {
         String AlpaNumericString = ".0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY";
         String randomString = "";
@@ -123,4 +96,5 @@ public class EmailConfig {
     public int randomBetweenTwoNumber(int min, int max) {
         return (int) Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
     }
+
 }

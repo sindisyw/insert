@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ACER
+ * @author HP
  */
 @Entity
 @Table(name = "employee")
@@ -103,6 +103,17 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
+    public Employee(String id, String firstName, String lastName, String email, int salary, String phoneNumber, Employee manager) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.salary = salary;
+        this.phoneNumber = phoneNumber;
+        this.manager = manager;
+    }
+
+    
     public Employee(String id, String firstName, String lastName, String email, int salary, String phoneNumber, String isDelete) {
         this.id = id;
         this.firstName = firstName;

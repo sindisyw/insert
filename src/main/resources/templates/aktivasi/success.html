@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <html xmlns:th="http://www.thymeleaf.org">
+
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="">
+            <meta name="author" content="Dashboard">
+            <meta name="keyword" content="Leave, Request, Cuti">
+            <title>Configure Account | Asset Management</title>
+
+            <!-- Favicons -->
+            <link th:href="@{/dist/img/favicon.png}" rel="icon">
+            <link th:href="@{/dist/img/apple-touch-icon.png}" rel="apple-touch-icon">
+            <!-- Bootstrap core CSS -->
+            <link th:href="@{/dist/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+            <link th:href="@{/dist/css/bootstrap.min.css}" rel="stylesheet">
+            <!--external css-->
+            <link th:href="@{/dist/lib/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+            <!-- Custom styles for this template -->
+            <link th:href="@{/dist/css/style.css}" rel="stylesheet">
+            <link th:href="@{/dist/css/style-responsive.css}" rel="stylesheet">
+
+        </head>
+
+        <body>
+            <!--**********************************************************************************************************************************************************
+                MAIN CONTENT
+                *********************************************************************************************************************************************************** -->
+            <section>
+                <div id="login-page">
+                    <div class="container">
+                        <h1 class="text-center"><a style="color:#ffffff">ACE<span style="color:#4ecdc4">MAN</span></a></h1>
+                        <form class="form-login" th:action="@{/login}" method="post">
+                            <h2 class="form-login-heading">Configure Account</h2>
+                            <div th:if="${param.error}" class="alert alert-warning">
+                                <strong>Warning!</strong> Invalid.
+                            </div>
+                            <div class="login-wrap">
+                                <!--<input th:value="${param.username}" th:if="${param.success}" name="username" type="text" class="form-control" placeholder="Username" data-error="Username invalid !"  autofocus required="Please insert your username !">-->
+                                <div class="alert alert-success text-center">
+                                    <h4><strong>Well done!</strong> Your account is successfully created</h4>
+                                    <br>
+                                    <label id="password"><strong>Your username</strong></label>
+                                    <br>
+                                    <span class="badge bg-primary">
+                                        <p th:text="${username}">username</p>
+                                    </span>
+                                    <br>
+                                    <label id="password"><strong>Your password</strong></label>
+                                    <br>
+                                    <span class="badge bg-warning">
+                                        <p th:text="${password}">password</p>
+                                    </span>
+                                </div>
+                                <label id="password">Retype your password to activate your account</label>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="password" aria-describedby="password" name="password" required="Please insert your password !">
+                                </div>
+                                <br>
+                                <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> Aktivasi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- js placed at the end of the document so the pages load faster -->
+                <script th:src="@{/dist/lib/jquery/jquery.min.js}"></script>
+                <script th:src="@{/dist/lib/bootstrap/js/bootstrap.min.js}"></script>
+                <!--BACKSTRETCH-->
+                <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+                <script type="text/javascript" th:src="@{/dist/lib/jquery.backstretch.min.js}"></script>
+                <script>
+                    $.backstretch("${/dist/img/login-bg.jpg}", {
+                        speed: 500
+                    });
+                </script>
+            </section>
+        </body>
+
+    </html>

@@ -99,7 +99,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/forget/**", "/confirm/**").permitAll() //bintang 1 permit ALL
+                .antMatchers("/", "/forget/**", "/confirm/**", "/AccountActivation/**").permitAll() //bintang 1 permit ALL
                 .antMatchers("/dist/**").permitAll()                               //bintang 2 permit ALL must Login
                 .antMatchers("/home/**").hasAnyAuthority("Admin")
                 .antMatchers("/employee/**").hasAnyAuthority("Employee")

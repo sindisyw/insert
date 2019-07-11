@@ -72,7 +72,6 @@ public class AdminController {
     @GetMapping("/admin-employee")
     public String adm_employee(Model model) {
         model.addAttribute("dataEmp", employeeRepository.getAll());
-        model.addAttribute("dataEmp", employeeRepository.getAll());
         model.addAttribute("dataAcc", accountServices.findAll());
         model.addAttribute("dataRole", roleServices.findAll());
         return "admin/employee";
